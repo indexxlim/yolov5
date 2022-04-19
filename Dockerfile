@@ -10,7 +10,7 @@ RUN apt update && apt install -y zip htop screen libgl1-mesa-glx
 COPY requirements.txt .
 RUN python -m pip install --upgrade pip
 RUN pip uninstall -y torch torchvision torchtext
-RUN pip install --no-cache -r requirements.txt albumentations wandb gsutil notebook \
+RUN pip install --no-cache -r requirements.txt albumentations wandb gsutil notebook tensorboard \
     torch==1.11.0+cu113 torchvision==0.12.0+cu113 -f https://download.pytorch.org/whl/cu113/torch_stable.html
 # RUN pip install --no-cache -U torch torchvision
 
@@ -30,7 +30,8 @@ RUN wandb disabled
 ENV OMP_NUM_THREADS=8
 ENV HOME=/usr/src/app
 
-#ENTRYPOINT python train.py
+ENTRYPOINT ["python", "train.py", "--img", "640", "--batch", "16", "--epochs", "3", "--data", "masked.yaml", "--weights", "yolov5s.pt"]
+#run python train.py --img 640 --batch 16 --epochs 3 --data masked.yaml --weights yolov5s.pt
 
 # Usage Examples -------------------------------------------------------------------------------------------------------
 
