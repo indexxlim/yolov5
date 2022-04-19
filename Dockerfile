@@ -30,7 +30,7 @@ RUN wandb disabled
 ENV OMP_NUM_THREADS=8
 ENV HOME=/usr/src/app
 
-ENTRYPOINT ["python", "train.py", "--img", "640", "--batch", "16", "--epochs", "3", "--data", "masked.yaml", "--weights", "yolov5s.pt"]
+#ENTRYPOINT ["python", "train.py", "--img", "640", "--batch", "16", "--epochs", "3", "--data", "masked.yaml", "--weights", "yolov5s.pt"]
 #run python train.py --img 640 --batch 16 --epochs 3 --data masked.yaml --weights yolov5s.pt
 
 # Usage Examples -------------------------------------------------------------------------------------------------------
