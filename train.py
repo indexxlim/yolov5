@@ -513,6 +513,15 @@ def parse_opt(known=False):
     parser.add_argument('--bbox_interval', type=int, default=-1, help='W&B: Set bounding-box image logging interval')
     parser.add_argument('--artifact_alias', type=str, default='latest', help='W&B: Version of dataset artifact to use')
 
+    '''
+    # Additional Hyperparameter
+    '''
+    parser.add_argument('--learning_rate', default=1E-2, help='initial learning rate')
+    parser.add_argument('--momentum', default=0.937, help='SGD momentum/Adam beta1')
+    '''
+    '''
+    
+
     opt = parser.parse_known_args()[0] if known else parser.parse_args()
     return opt
 
@@ -602,6 +611,17 @@ def main(opt, callbacks=Callbacks()):
             hyp = yaml.safe_load(f)  # load hyps dict
             if 'anchors' not in hyp:  # anchors commented in hyp.yaml
                 hyp['anchors'] = 3
+
+
+        '''
+            Additional hyperparameter setting
+        '''
+        hyp['lr0'] = opt.learning_rate
+        hyp['momentum'] = opt.momentum
+
+
+
+
         opt.noval, opt.nosave, save_dir = True, True, Path(opt.save_dir)  # only val/save final epoch
         # ei = [isinstance(x, (int, float)) for x in hyp.values()]  # evolvable indices
         evolve_yaml, evolve_csv = save_dir / 'hyp_evolve.yaml', save_dir / 'evolve.csv'
